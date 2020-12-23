@@ -8,4 +8,8 @@ class AuthToken {
       'token': this.token,
     };
   }
+
+  AuthToken.fromJson(Map<String, dynamic> json) {
+    token = json['token'];
+  }
 }

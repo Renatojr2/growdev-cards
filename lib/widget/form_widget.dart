@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:growdevcards/services/login_params.dart';
+import 'package:growdevcards/models/login_params.dart';
 import 'package:growdevcards/widget/customTextFormField.dart';
 
 class FormWidget extends StatelessWidget {

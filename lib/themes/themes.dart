@@ -20,9 +20,9 @@ Color laranjaGrowdev = Color.fromRGBO(225, 110, 14, 1);
 
 ThemeData growDevTheme() {
   return ThemeData(
-      primarySwatch: azulGrowdev,
-      primaryColor: azulGrowdev,
-      primaryColorLight: azulGrowdev[700],
-      splashColor: azulGrowdev[900],
-      accentColor: laranjaGrowdev);
+    primarySwatch: azulGrowdev,
+    primaryColorLight: azulGrowdev[700],
+    splashColor: azulGrowdev[900],
+    accentColor: laranjaGrowdev,
+  );
 }

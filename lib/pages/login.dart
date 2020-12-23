@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:growdevcards/models/remote_user_token.dart';
-import 'package:growdevcards/pages/list_card.dart';
 import 'package:growdevcards/services/api.dart';
-import 'package:growdevcards/services/login_params.dart';
-import 'package:growdevcards/services/token.dart';
+import 'package:growdevcards/models/login_params.dart';
+import 'package:growdevcards/models/token.dart';
 import 'package:growdevcards/widget/customButton.dart';
 import 'package:growdevcards/widget/form_widget.dart';
 import 'package:growdevcards/widget/logo.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserToken>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Padding(
@@ -105,6 +106,8 @@ class _LoginPageState extends State<LoginPage> {
                           form.currentState.save();
                           UserToken res = await Api().login(loginParams);
                           if (res.token != null) {
+                            userProvider.token = res.token;
+                            userProvider.user = res.user;
                             await Navigator.of(context)
                                 .pushReplacementNamed('/listCard');
                           }
