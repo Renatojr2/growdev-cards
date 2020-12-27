@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'id_container.dart';
 
@@ -6,8 +7,11 @@ class CardWidget extends StatelessWidget {
   final String title;
   final String subtitle;
   final int id;
+  final Function() onEdit;
+  final Function() onDelete;
 
-  const CardWidget({this.title, this.subtitle, this.id});
+  const CardWidget(
+      {this.title, this.subtitle, this.id, this.onEdit, this.onDelete});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,6 +19,9 @@ class CardWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.topCenter,
         child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
           elevation: 3,
           child: Container(
             padding: EdgeInsets.all(10),
@@ -66,11 +73,13 @@ class CardWidget extends StatelessWidget {
                 Row(
                   children: [
                     FlatButton(
-                      onPressed: () {},
+                      highlightColor: Theme.of(context).accentColor,
+                      onPressed: onEdit,
                       child: Text('Editar'),
                     ),
                     FlatButton(
-                      onPressed: () {},
+                      highlightColor: Theme.of(context).accentColor,
+                      onPressed: onDelete,
                       child: Text('Excluir'),
                     ),
                   ],

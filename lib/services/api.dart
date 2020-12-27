@@ -27,15 +27,70 @@ class Api {
   }
 
   Future<List<CustomCard>> getCard(String token) async {
-    Response<List> response = await dio.get(
-      '/cards',
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
-    );
+    try {
+      Response<List> response = await dio.get(
+        '/cards',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      if (response.data != null) {
+        return response.data.map((card) => CustomCard.fromJson(card)).toList();
+      }
+    } catch (e) {
+      print(e as DioError);
+    }
+  }
 
-    return response.data.map((card) => CustomCard.fromJson(card)).toList();
+  Future<String> deletarCards(int id, String token) async {
+    try {
+      Response response = await dio.delete(
+        '/cards/$id',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      return response.statusMessage = 'Card Deletado com sucesso';
+    } catch (e) {
+      print(e as DioError);
+    }
+  }
+
+  Future<CustomCard> insereCards(CustomCard card, String token) async {
+    try {
+      Response response = await dio.post(
+        '/cards',
+        data: card.toJson(),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      return CustomCard.fromJson(response.data);
+    } catch (e) {
+      print(e as DioError);
+    }
+  }
+
+  Future<CustomCard> editarCards(CustomCard card, String token) async {
+    try {
+      Response response = await dio.put(
+        '/cards/${card.id}',
+        data: card,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      return CustomCard.fromJson(response.data);
+    } catch (e) {
+      print(e);
+    }
   }
 }
